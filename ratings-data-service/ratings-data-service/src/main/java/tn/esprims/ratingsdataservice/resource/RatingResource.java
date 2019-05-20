@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tn.esprims.ratingsdataservice.models.Rating;
 import tn.esprims.ratingsdataservice.models.RatingList;
@@ -16,13 +17,13 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/ratings")
-@Api(value="UserResources", consumes="application/json", produces="application/json",protocols="http", description="Operations Related to Ratings")
+@Api(value = "RatingResourceAPI", produces = MediaType.APPLICATION_JSON_VALUE, description = "Rating Resource")
 public class RatingResource {
 
     @Autowired
     RatingRepository ratingRepository;
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "getRatings" )
+    @ApiOperation("Get All Rating")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully get Rating"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -34,7 +35,7 @@ public class RatingResource {
         return ratingRepository.findAll();
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "addRating" )
+    @ApiOperation("Add Rating")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully add Rating"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -63,7 +64,7 @@ public class RatingResource {
         return ratingList;
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "getRatingById" )
+    @ApiOperation("Get Rating")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully get Rating by ID"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -75,7 +76,7 @@ public class RatingResource {
         return ratingRepository.findById(id);
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "deleteRating" )
+    @ApiOperation("Delete Rating")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved Rating"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -89,7 +90,7 @@ public class RatingResource {
         return ratingRepository.findAll();
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "updateRating" )
+    @ApiOperation("Update Rating")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully update Rating"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),

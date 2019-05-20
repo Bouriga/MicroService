@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tn.esprims.movieinfoservice.models.Movie;
 import tn.esprims.movieinfoservice.models.MovieList;
@@ -15,16 +16,17 @@ import java.util.List;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/movies")
-@Api(value="UserResources", consumes="application/json", produces="application/json",protocols="http", description="Operations Related to Movie")
+@Api(value = "MovieResourceAPI", produces = MediaType.APPLICATION_JSON_VALUE, description = "Movie Resource")
 public class MovieResource {
     @Autowired
     MoviesRepository moviesRepository;
 
+    @ApiOperation("Get Movie By name")
     @RequestMapping("/api/{movieName}")
     public Movie getMovieInfo(@PathVariable("movieName") String movieName){
         return moviesRepository.findByName(movieName);
     }
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "getMovieById" )
+    @ApiOperation("Get Movie By ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully get Movie by ID"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -36,7 +38,7 @@ public class MovieResource {
         return moviesRepository.findById(id);
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "getMovies" )
+    @ApiOperation("Get All Movie")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully get Movies"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -50,7 +52,7 @@ public class MovieResource {
         return movieList;
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "addMovie" )
+    @ApiOperation("Add Movie")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully add Movie"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -63,7 +65,7 @@ public class MovieResource {
         return moviesRepository.findAll();
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "deleteMovie" )
+    @ApiOperation("Delete Movie")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully retrieved Movie"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
@@ -77,7 +79,7 @@ public class MovieResource {
         return moviesRepository.findAll();
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "updateMovie" )
+    @ApiOperation("Update Movie")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully update Movie"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),

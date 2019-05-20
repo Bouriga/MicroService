@@ -1,9 +1,11 @@
 package tn.esprims.moviecatalogservice.resources;
 
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import tn.esprims.moviecatalogservice.models.User;
 import tn.esprims.moviecatalogservice.repositories.UserRepository;
@@ -14,6 +16,7 @@ import java.util.Optional;
 @RestController
 @CrossOrigin(origins = "*")
 @RequestMapping("/users")
+@Api(value = "UserResourceAPI", produces = MediaType.APPLICATION_JSON_VALUE, description = "User Resource")
 public class UserResource {
 
     @Autowired
@@ -32,7 +35,7 @@ public class UserResource {
         return userRepository.findById(userId);
     }
 
-    @ApiOperation(consumes="application/json", produces="application/json",protocols="http", value = "addUser" )
+    @ApiOperation("Add User")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Successfully Added User"),
             @ApiResponse(code = 401, message = "The request has not been applied because it lacks valid authentication credentials for the target resource"),
